@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Organizer.Domain.Entities.Lists;
-using Organizer.Domain.Entities.Notes;
+using Organizer.Models.Lists;
+using Organizer.Models.Notes;
 using Organizer.Services.Models;
 using System;
 
-namespace Organizer.Services.Mapper
+namespace Organizer.Mapping
 {
     public static class ObjectMapper
     {
@@ -14,8 +14,8 @@ namespace Organizer.Services.Mapper
             {
                 // This line ensures that internal properties are also mapped over.
                 cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
-                cfg.CreateMap<Note, NoteModel>().ReverseMap();
-                cfg.CreateMap<ToDoListItem, ToDoListItemModel>().ReverseMap();
+                cfg.CreateMap<NoteModel, NoteVm>().ReverseMap();
+                cfg.CreateMap<ToDoListItemModel, ToDoListItemVm>().ReverseMap();
             });
             var mapper = config.CreateMapper();
             return mapper;

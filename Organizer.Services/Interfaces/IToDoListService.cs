@@ -1,7 +1,5 @@
 ﻿using Organizer.Services.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace Organizer.Services.Interfaces
 {
@@ -9,7 +7,7 @@ namespace Organizer.Services.Interfaces
     {
         ToDoListItemModel GetToDoItemById(int id);
 
-        IEnumerable<ToDoListItemModel> GetToDoList();
+        IEnumerable<ToDoListItemModel> GetToDoList(string filter = null);
 
         void DeleteToDoItem(ToDoListItemModel entityToDelete);
 

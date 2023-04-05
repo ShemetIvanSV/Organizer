@@ -46,11 +46,16 @@ namespace Organizer.Services.Services
             return ObjectMapper.Mapper.Map<ToDoListItemModel>(result);
         }
 
-        public IEnumerable<ToDoListItemModel> GetToDoList()
+        public IEnumerable<ToDoListItemModel> GetToDoList(string filter = null)
         {
-            var result = _repository.GetElements();
-            ///TODO: правила фильтрации.
-            return ObjectMapper.Mapper.Map<IEnumerable<ToDoListItemModel>>(result);
+            IEnumerable<ToDoListItem> toDoList;
+
+            if (string.IsNullOrEmpty(filter))
+                toDoList = _repository.GetElements();
+            else
+                toDoList = _repository.GetElements((item) => item.Name.Contains(filter));
+
+            return ObjectMapper.Mapper.Map<IEnumerable<ToDoListItemModel>>(toDoList);
         }
 
         public void UpdateToDoItem(ToDoListItemModel entityToUpdate)

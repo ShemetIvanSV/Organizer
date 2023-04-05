@@ -25,7 +25,8 @@ namespace Organizer.DataAccess.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                dbContext.ToDoListItems.Remove(entityToDelete);
+                var item = dbContext.ToDoListItems.FirstOrDefault(x => x.Id == entityToDelete.Id);
+                dbContext.ToDoListItems.Remove(item);
                 dbContext.SaveChanges();
             }
         }
@@ -42,7 +43,10 @@ namespace Organizer.DataAccess.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                return dbContext.ToDoListItems.Where(predicate).ToList();
+                if (predicate != null)
+                    return dbContext.ToDoListItems.Where(predicate).ToList();
+
+                return dbContext.ToDoListItems.ToList();
             }
         }
 
@@ -50,7 +54,10 @@ namespace Organizer.DataAccess.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                dbContext.Entry(entityToUpdate).State = EntityState.Modified;
+                var item = dbContext.ToDoListItems.FirstOrDefault(x => x.Id == entityToUpdate.Id);
+                item.Description = entityToUpdate.Description;
+                item.Name = entityToUpdate.Name;
+                item.HasDone = entityToUpdate.HasDone;
                 dbContext.SaveChanges();
             }
         }

@@ -5,10 +5,43 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Organizer.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ToDoListView">
+      d:DesignHeight="450" d:DesignWidth="450"
+      Title="ToDoListView"
+      DataContext= "{Binding ToDoList, Source={StaticResource Locator}}">
 
     <Grid>
-        
+        <Grid>
+            <DockPanel>
+                <Grid DockPanel.Dock="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="0,0,10,0" Command="{Binding CreateCommand}">Добавить</Button>
+                        <Button Margin="0,0,10,0" Command="{Binding EditCommand}">Изменить</Button>
+                        <Button Margin="0,0,10,0" IsEnabled="{Binding WasSave}" Command="{Binding SaveCommand}">Сохранить</Button>
+                        <Button Margin="0,0,10,0" Command="{Binding DeleteCommand}">Удалить</Button>
+                        <CheckBox Margin="90,0,0,0" Content="Выполнено" IsChecked="{Binding SelectedItem.HasDone}" IsEnabled="{Binding WasSave}"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel DockPanel.Dock="Left" Width="150">
+                    <StackPanel Width="150">
+                        <TextBlock Text="Фильтр" />
+                        <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+                    </StackPanel>
+                    <DataGrid CanUserReorderColumns="False" CanUserResizeColumns="False" ItemsSource="{Binding ToDoList}" Height="400" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding HasDone}"/>
+                            <DataGridTextColumn Header="Задача" Binding="{Binding Name}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                <Grid DockPanel.Dock="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox TextWrapping="Wrap" Grid.Row="0" Text="{Binding SelectedItem.Name}" IsEnabled="{Binding WasSave}"/>
+                    <TextBox TextWrapping="Wrap" Grid.Row="1" Text="{Binding SelectedItem.Description}" IsEnabled="{Binding WasSave}"/>
+                </Grid>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Page>

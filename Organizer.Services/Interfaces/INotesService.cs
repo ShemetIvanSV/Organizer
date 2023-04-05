@@ -9,7 +9,7 @@ namespace Organizer.Services.Interfaces
     {
         NoteModel GetNoteById(int id);
 
-        IEnumerable<NoteModel> GetNotes();
+        IEnumerable<NoteModel> GetNotes(string filter = null);
 
         void DeleteNote(NoteModel noteToDelete);
 

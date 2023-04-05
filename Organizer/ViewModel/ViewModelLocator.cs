@@ -15,7 +15,14 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Organizer.DataAccess.Repositories;
+using Organizer.Domain.Entities.Lists;
+using Organizer.Domain.Entities.Notes;
+using Organizer.Domain.Repositories;
 using Organizer.Infrastracture;
+using Organizer.Services.Interfaces;
+using Organizer.Services.Repositories;
+using Organizer.Services.Services;
 using System;
 
 namespace Organizer.ViewModel
@@ -35,11 +42,13 @@ namespace Organizer.ViewModel
 
             SetupNavigation();
 
+            SimpleIoc.Default.Register<IRepository<Note>, NotesRepository>();
+            SimpleIoc.Default.Register<IRepository<ToDoListItem>, ToDoListRepository>();
+            SimpleIoc.Default.Register<INotesService, NotesService>();
+            SimpleIoc.Default.Register<IToDoListService, ToDoListService>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ToDoListViewModel>();
             SimpleIoc.Default.Register<NoteViewModel>();
-            SimpleIoc.Default.Register<AddNewNoteViewModel>();
-            SimpleIoc.Default.Register<EditNoteViewModel>();
         }
 
         public MainViewModel Main
@@ -58,11 +67,11 @@ namespace Organizer.ViewModel
             }
         }
 
-        public AddNewNoteViewModel NewNote
+        public ToDoListViewModel ToDoList
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<AddNewNoteViewModel>();
+                return ServiceLocator.Current.GetInstance<ToDoListViewModel>();
             }
         }
 
@@ -74,10 +83,8 @@ namespace Organizer.ViewModel
         private static void SetupNavigation()
         {
             var navigationService = new FrameNavigationService();
-            navigationService.Configure("ToDoListView", new Uri("../Views/ToDoListView.xaml", UriKind.Relative));
+            navigationService.Configure("ToDoList", new Uri("../Views/ToDoListView.xaml", UriKind.Relative));
             navigationService.Configure("Notes", new Uri("../Views/NotesView.xaml", UriKind.Relative));
-            navigationService.Configure("NewNote", new Uri("../Views/Notes/AddNewNote.xaml", UriKind.Relative));
-            navigationService.Configure("EditNote", new Uri("../Views/Notes/EditNote.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }

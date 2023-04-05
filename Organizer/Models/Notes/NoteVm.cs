@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight;
 
 namespace Organizer.Models.Notes
 {
-    public class NoteVm
+    public class NoteVm : ViewModelBase
     {
-        public int Id { get; set; }
+        private int _id;
+        private string _name;
+        private string _description;
 
-        public string Name { get; set; }
+        public int Id
+        {
+            get => _id;
+            set { _id = value; RaisePropertyChanged(); }
+        }
 
-        public string Description { get; set; }
+        public string Name
+        {
+            get => _name;
+            set { _name = value; RaisePropertyChanged(); }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set { _description = value; RaisePropertyChanged(); }
+        }
     }
 }

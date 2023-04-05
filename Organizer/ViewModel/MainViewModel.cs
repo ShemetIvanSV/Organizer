@@ -27,13 +27,20 @@ namespace Organizer.ViewModel
         {
             _navigationService = navigationService;
             OpenNotesCommand = new RelayCommand(OpenNotes);
+            OpenToDoListCommand = new RelayCommand(OpenToDoList);
         }
 
         public ICommand OpenNotesCommand { get; set; }
+        public ICommand OpenToDoListCommand { get; set; }
 
         private void OpenNotes()
         {
             _navigationService.NavigateTo("Notes");
+        }
+
+        private void OpenToDoList()
+        {
+            _navigationService.NavigateTo("ToDoList");
         }
     }
 }

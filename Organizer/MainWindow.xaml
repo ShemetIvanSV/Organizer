@@ -28,25 +28,16 @@
         <DockPanel Margin="5,5,5,5">
             <StackPanel DockPanel.Dock="Left" Margin="0,0,0,0.4" Width="216">
                 <Button Command="{Binding OpenNotesCommand}" Margin="0,0,0,3" Height="50" Background="#6dd689">
-                    <StackPanel Margin="3,3,100,3" Orientation="Horizontal">
-                        <Image Source="/Resources/Заметки.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Заметки" VerticalAlignment="Center"/>
-                    </StackPanel>
+                    Заметки
                 </Button>
-                <Button Margin="0,0,0,3" Height="50" Background="#a1cfce">
-                    <StackPanel Margin="3,3,100,3" Orientation="Horizontal">
-                        <Image Source="/Resources/Списки.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Списки" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <Button  Command="{Binding OpenToDoListCommand}" Margin="0,0,0,3" Height="50" Background="#a1cfce">
+                    Списки
                 </Button>
                 <Button  Margin="0,0,0,3"  Height="50" Background="#c795af">
-                    <StackPanel Orientation="Horizontal" Width="183">
-                        <Image Source="/Resources/Крестики-нолики.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Крестики нолики" VerticalAlignment="Center" FontFamily="Open Sans"/>
-                    </StackPanel>
+                    Крестики-нолики
                 </Button>
             </StackPanel>
-            <Frame x:Name="MainFrame"/>
+            <Frame x:Name="MainFrame" Width="450" NavigationUIVisibility="Hidden"/>
         </DockPanel>
     </Grid>
 </Window>

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -73,20 +76,13 @@
     </ApplicationDefinition>
     <Compile Include="Infrastracture\FrameNavigationService.cs" />
     <Compile Include="Infrastracture\IFrameNavigationService.cs" />
-    <Compile Include="ViewModel\AddNewNoteViewModel.cs" />
-    <Compile Include="ViewModel\EditNoteViewModel.cs" />
+    <Compile Include="Mapping\ObjectMapper.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NoteViewModel.cs" />
     <Compile Include="ViewModel\ToDoListViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\NotesView.xaml.cs">
       <DependentUpon>NotesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Notes\AddNewNote.xaml.cs">
-      <DependentUpon>AddNewNote.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Notes\EditNote.xaml.cs">
-      <DependentUpon>EditNote.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ToDoListView.xaml.cs">
       <DependentUpon>ToDoListView.xaml</DependentUpon>
@@ -104,14 +100,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\NotesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Notes\AddNewNote.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Notes\EditNote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +127,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -150,25 +139,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Крестики-нолики.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Списки.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Заметки.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Органайзер.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Models\Game\" />
-    <Folder Include="Views\ToDoList\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\Organizer.DataAccess.csproj">
       <Project>{8262f0bf-9888-4e1f-8d0c-c3fe374d34c1}</Project>
       <Name>Organizer.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Organizer.Domain\Organizer.Domain.csproj">
+      <Project>{4b847f50-4178-4170-80a9-33b6ec461966}</Project>
+      <Name>Organizer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Organizer.Services\Organizer.Services.csproj">
+      <Project>{0ed61fee-9d1b-4540-93da-d58e627515cf}</Project>
+      <Name>Organizer.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

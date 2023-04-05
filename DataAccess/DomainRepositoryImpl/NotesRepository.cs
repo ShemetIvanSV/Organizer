@@ -25,7 +25,8 @@ namespace Organizer.Services.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                dbContext.Notes.Remove(entityToDelete);
+                var note = dbContext.Notes.FirstOrDefault(x => x.Id == entityToDelete.Id);
+                dbContext.Notes.Remove(note);
                 dbContext.SaveChanges();
             }
         }
@@ -42,7 +43,10 @@ namespace Organizer.Services.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                return dbContext.Notes.Where(predicate).ToList();
+                if (predicate != null)
+                    return dbContext.Notes.Where(predicate).ToList();
+
+                return dbContext.Notes.ToList();
             }
         }
 
@@ -50,7 +54,9 @@ namespace Organizer.Services.Repositories
         {
             using (var dbContext = new DataContext())
             {
-                dbContext.Entry(entityToUpdate).State = EntityState.Modified;
+                var note = dbContext.Notes.FirstOrDefault(x => x.Id == entityToUpdate.Id);
+                note.Description = entityToUpdate.Description;
+                note.Name = entityToUpdate.Name;
                 dbContext.SaveChanges();
             }
         }

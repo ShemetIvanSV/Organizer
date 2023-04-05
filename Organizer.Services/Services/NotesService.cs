@@ -50,11 +50,16 @@ namespace Organizer.Services.Services
             return ObjectMapper.Mapper.Map<NoteModel>(result);
         }
 
-        public IEnumerable<NoteModel> GetNotes()
+        public IEnumerable<NoteModel> GetNotes(string filter = null)
         {
-            var result = _repository.GetElements();
-            ///TODO: правила фильтрации.
-            return ObjectMapper.Mapper.Map<IEnumerable<NoteModel>>(result);
+            IEnumerable<Note> notes;
+
+            if (string.IsNullOrEmpty(filter))
+                notes = _repository.GetElements();
+            else
+                notes = _repository.GetElements((note) => note.Name.Contains(filter));
+
+            return ObjectMapper.Mapper.Map<IEnumerable<NoteModel>>(notes);
         }
 
         public void UpdateNote(NoteModel noteToUpdate)
